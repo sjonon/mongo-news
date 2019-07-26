@@ -39,8 +39,18 @@ module.exports = function (app) {
             })
         });
         res.send("Scrape Complete");
-
-
     });
+
+    //saved
+    app.post("/saved/:id", function(res, req){
+        db.Article.findById({ _id: req.params.id})
+        .populate("note")
+        .then(function(dbArticle){
+          res.json(dbArticle);
+        })
+        .catch(function(err){
+          res.json(err);
+        })
+      });
 
 }
