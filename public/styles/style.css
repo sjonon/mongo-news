@@ -4,4 +4,8 @@ h1 {
 
 .nav-wrapper {
     background-image: "/assets/newspapers.jpg"
-}
+};
+
+.card-title {
+    background-color: #666;
+};
