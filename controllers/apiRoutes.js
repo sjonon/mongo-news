@@ -29,7 +29,7 @@ module.exports = function (app) {
                     // //  article.create or something similar
                     db.Article.create(results)
                         .then(function (dbArticle) {
-                            console.log(dbArticle);
+                            console.log("dbArticle: " + dbArticle);
                         })
                         .catch(function (error) {
                             res.status(500).send();
