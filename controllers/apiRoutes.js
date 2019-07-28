@@ -42,15 +42,29 @@ module.exports = function (app) {
     });
 
     //saved
-    app.post("/saved/:id", function(res, req){
-        db.Article.findById({ _id: req.params.id})
-        .populate("note")
-        .then(function(dbArticle){
-          res.json(dbArticle);
-        })
-        .catch(function(err){
-          res.json(err);
-        })
-      });
+    app.get("/saved/", function () {
+        db.Article.find({ saved: true })
+            .then(function (found) {
+            for (i = 0; i < found.length; i++){
+                $(".article").append(` <div class="row">
+            <div class="col s12 m7">
+          <div class="card">
+            <div class="card-image">
+              <img src="${ data[i].photo}">
+              <span class="card-title"> ${ data[i].title}</span>
+            </div>
+            <div class="card-content">
+              <p>${data[i].summary}</p>
+            </div>
+            <div class="card-action">
+              <a href="${data[i].link}">Read Article</a>
+              <btn class="save" data-id=${data[i]._id}>DELETE ARTICLE</btn>
+              <btn class="save" data-id=${data[i]._id}>ARTICLE NOTE</btn>
+            </div>
+          </div>
+            </div>
+      </div>`)}
+            })
 
-}
+    });
+};

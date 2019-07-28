@@ -34,14 +34,16 @@ $(document).on("click", "#scrape", function(event){
 //save article button clicked
 $(document).on("click", ".save", function(){
   let id = $(this).data("id");
+  let fav = $(this).data("saved");
   console.log(id);
   $.ajax({
     method: "PUT",
-    url: "/saved/" +id
+    url: "/saved/" +id,
+    data: id
   })
   .then(function(data){
     console.log(data);
-    db.Article.findOneAndUpdate({ _id: req.params.id}, {$push: { saved: true}});
+    db.Article.findOneAndUpdate({ _id: id}, {$push: { saved: true}});
   })
     .then(function(dbArticle){
       res.json(dbArticle);

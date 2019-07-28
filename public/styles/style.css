@@ -1,5 +1,13 @@
 h1 {
-    color: slateblue
+    color:95adbe;
+};
+
+nav {
+    background-color: 95adbe;
+};
+
+footer {
+    background-color: 95adbe;
 };
 
 .nav-wrapper {
@@ -9,3 +17,4 @@ h1 {
 .card-title {
     background-color: #666;
 };
+
