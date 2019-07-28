@@ -33,8 +33,8 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // Routes
-require("./Controllers/apiRoutes")(app);
-require("./Controllers/htmlRoutes")(app);
+require("./controllers/apiRoutes")(app);
+require("./controllers/htmlRoutes")(app);
 
 // Listen on port 3000
 app.listen(PORT, function() {
