@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //database connection
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://homework:homework1@ds255577.mlab.com:55577/heroku_8xxwfssd";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.connect(MONGODB_URI);
 
 
