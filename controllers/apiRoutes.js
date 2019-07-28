@@ -32,7 +32,7 @@ module.exports = function (app) {
                             console.log("dbArticle: " + dbArticle);
                         })
                         .catch(function (error) {
-                            res.status(500).send();
+                            res.status(500).send(error);
                             console.log(error)
                         })
                 }
@@ -41,30 +41,42 @@ module.exports = function (app) {
         res.send("Scrape Complete");
     });
 
-    //saved
-    app.get("/saved/", function () {
-        db.Article.find({ saved: true })
-            .then(function (found) {
-            for (i = 0; i < found.length; i++){
-                $(".article").append(` <div class="row">
-            <div class="col s12 m7">
-          <div class="card">
-            <div class="card-image">
-              <img src="${ data[i].photo}">
-              <span class="card-title"> ${ data[i].title}</span>
-            </div>
-            <div class="card-content">
-              <p>${data[i].summary}</p>
-            </div>
-            <div class="card-action">
-              <a href="${data[i].link}">Read Article</a>
-              <btn class="save" data-id=${data[i]._id}>DELETE ARTICLE</btn>
-              <btn class="save" data-id=${data[i]._id}>ARTICLE NOTE</btn>
-            </div>
-          </div>
-            </div>
-      </div>`)}
+    //saved -updating the article to be saved
+    app.put("/saved/:id", function (req, res) {
+        db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: true })
+            .then(function (data) {
+                console.log("save button click" + data);
+                db.Article.findOneAndUpdate({ _id: id }, { $push: { saved: true } });
             })
-
+            .then(function (dbArticle) {
+                res.json(dbArticle);
+            })
+            .catch(function (err) {
+                res.json(err);
+            })
     });
-};
+
+    //find saved articles
+    app.post("/savedarticles", function (req, res) {
+        db.Article.find( { saved: true })
+        .then( function (dbArticle){
+            res.json(dbArticle);
+        })
+        .catch(function(err){
+            res.json(err)
+        });
+    });
+
+    app.get("/articles", function(req, res) {
+        // Grab every document in the Articles collection
+        db.Article.find({})
+          .then(function(dbArticle) {
+            // If we were able to successfully find Articles, send them back to the client
+            res.json(dbArticle);
+          })
+          .catch(function(err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+          });
+      });
+}
