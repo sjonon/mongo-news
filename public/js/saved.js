@@ -15,7 +15,7 @@ $(document).ready(function () {
               <div class="card" id=${ data[i]._id}>
               <div class="card-image">
               <img src="${ data[i].photo}">
-              <span class="card-title"> ${ data[i].title}</span>
+              <span class="card-title grey"> ${ data[i].title}</span>
               </div>
               <div class="card-content">
               <p>${data[i].summary}</p>
@@ -23,16 +23,7 @@ $(document).ready(function () {
               <div class="card-action">
               <a href="${data[i].link}">Read Article</a>
               <btn class="delete" data-id=${data[i]._id}>DELETE ARTICLE</btn>
-              <button data-target=${data[i]._id} class="btn modal-trigger">SAVE NOTE</button>
-              <div id=${data[i]._id} class="modal">
-              <div class="modal-content">
-              <h4>Add Note</h4>
-              <p>A bunch of text</p>
-              </div>
-              <div class="modal-footer">
-              <a href="#!" class="modal-close waves-effect waves-green btn-flat">SAVE</a>
-              </div>
-              </div>
+              <button type="button" class="btn btn-primary note" data-toggle="modal" id=${data[i]._id} data-target=${data[i]._id}>SAVE NOTE</ button>
                 </div>
                 </div>
                 </div>
@@ -44,7 +35,7 @@ $(document).ready(function () {
     };
     savedArticles();
 
-    $('.modal').modal();
+
 
     $(document).on("click", ".delete", function(){
         let id = $(this).data("id");
@@ -56,9 +47,39 @@ $(document).ready(function () {
         //then remove the card
         savedArticles();
         // $("#"+id).remove();
-      })
+    })
 
-    // $(".note").on("click", function () {
-    //     instance.open();
-    // })
+    $(document).on("click", ".note", function () {
+        var artId = $(".note").attr("data-target");
+        console.log(artId);
+        $.ajax({
+            method: "GET",
+            url: "/note/"+artId
+        }).then(function(data){
+            console.log(data)
+            // if(data.notes.length>0){
+            //     $("#modalTitle").text("Saved Notes: " + data.notes.length);
+            // }else{
+            //     $("#modalTitle").text("Saved Notes: No saved notes yet")
+            // }
+        })
+        //populate and show a modal to allow user to enter/edit note
+          $("#noteModal").modal("show");
+          $("#saveNote").on("click", function(){
+            $.ajax({
+                method: "POST",
+                url: "/note/" + artId,
+                data: {
+                  body: $("#noteText").val()
+                }
+              })
+              .then(function(data){
+                console.log("Note saved: " + data);
+                $("#noteText").val("");
+             })
+        })
+        })
+
+
+    
 })

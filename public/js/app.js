@@ -13,14 +13,14 @@ function postNews() {
           <div class="card">
             <div class="card-image">
               <img src="${ data[i].photo}">
-              <span class="card-title"> ${ data[i].title}</span>
+              <span class="card-title grey"> ${ data[i].title}</span>
             </div>
             <div class="card-content">
               <p>${data[i].summary}</p>
             </div>
             <div class="card-action">
               <a href="${data[i].link}">Read Article</a>
-              <btn class="save" data-id=${data[i]._id}>SAVE ARTICLE</btn>
+              <button class="save" data-id=${data[i]._id}>SAVE ARTICLE</button>
             </div>
           </div>
         </div>
