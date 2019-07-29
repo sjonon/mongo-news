@@ -60,33 +60,5 @@ $(document).on("click", "#clear", function () {
   $(".article").empty();
 });
 
-function savedArticles() {
-  $.ajax({
-    method: "GET",
-    url: "/savedarticles",
-  })
-  .then(function (data) {
-    console.log(data);
-    for (i = 0; i < data.length; i++) {
-      $(".article").append(` <div class="row">
-        <div class="col s12 m7">
-        <div class="card">
-        <div class="card-image">
-        <img src="${ data[i].photo}">
-        <span class="card-title"> ${ data[i].title}</span>
-        </div>
-        <div class="card-content">
-        <p>${data[i].summary}</p>
-        </div>
-        <div class="card-action">
-        <a href="${data[i].link}">Read Article</a>
-        <btn class="save" data-id=${data[i]._id}>DELETE ARTICLE</btn>
-        <btn class="save" data-id=${data[i]._id}>ARTICLE NOTE</btn>
-        </div>
-        </div>
-        </div>
-        </div>`
-      )
-    }
-  })
-};
+
+
