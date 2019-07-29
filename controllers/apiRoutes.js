@@ -77,4 +77,27 @@ module.exports = function (app) {
         });
         res.status(200);
       })
+
+      app.post("/note/:id", function(req, res){
+        db.Note.create(req.body);
+        db.Article.findOne({ _id: req.params.id })
+        .populate("notes")
+        .then(function(dbNote){
+          return db.Article.updateOne({ _id: req.params.id }, {$push: {note: dbNote._id}}, { new: true })
+        })
+        .then(function(dbArticle){
+          res.json(dbArticle);
+        })
+        .catch(function(err) {
+          // If an error occurred, send it to the client
+          res.json(err);
+        });
+      })
+
+      app.get("/note/:id", function(req, res){
+          db.Article.findOne({_id: req.params.id})
+        .then(function(dbArticle){
+          res.json(dbArticle)
+      })
+    })
 }
