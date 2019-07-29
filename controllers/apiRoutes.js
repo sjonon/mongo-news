@@ -66,4 +66,15 @@ module.exports = function (app) {
             res.json(err)
         });
     });
+
+    //remove article from saved article
+    app.put("/removearticles/:id", function(req, res){
+        console.log("Updating: " + req.params.id);
+        db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: false })
+        .catch(function(err) {
+          // If an error occurred, send it to the client
+          res.json(err);
+        });
+        res.status(200);
+      })
 }
