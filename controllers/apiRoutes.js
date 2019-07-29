@@ -32,7 +32,6 @@ module.exports = function (app) {
                             console.log("dbArticle: " + dbArticle);
                         })
                         .catch(function (error) {
-                            res.status(500).send(error);
                             console.log(error)
                         })
                 }
