@@ -8,6 +8,10 @@ module.exports = function(app){
     
     //saved
     app.get("/saved", function(req, res){
+        res.render("saved")
+    })
+
+    app.get("/savedarticles", function(req, res){
         res.render("index")
     })
 
