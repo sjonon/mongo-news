@@ -50,18 +50,16 @@ $(document).ready(function () {
     })
 
     $(document).on("click", ".note", function () {
-        var artId = $(".note").attr("data-target");
+        var artId = $(this).data("target");
         console.log(artId);
         $.ajax({
             method: "GET",
             url: "/note/"+artId
         }).then(function(data){
             console.log(data)
-            // if(data.notes.length>0){
-            //     $("#modalTitle").text("Saved Notes: " + data.notes.length);
-            // }else{
-            //     $("#modalTitle").text("Saved Notes: No saved notes yet")
-            // }
+            if(data.note){
+                $("#noteText").val("Saved Notes: " + data.note.body);
+            }
         })
         //populate and show a modal to allow user to enter/edit note
           $("#noteModal").modal("show");
