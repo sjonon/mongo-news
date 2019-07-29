@@ -6,6 +6,7 @@ function postNews() {
     url: "/all"
   })
     .then(function (data) {
+      $(".article").empty();
       console.log("postNews fn: " + data);
       for (var i = 0; i < data.length; i++) {
         $(".article").append(` <div class="row">
